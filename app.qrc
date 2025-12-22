@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>assets/audio.svg</file>
+        <file>assets/backward.svg</file>
+        <file>assets/drop_down.svg</file>
+        <file>assets/explorer.svg</file>
+        <file>assets/forward.svg</file>
+        <file>assets/focus.svg</file>
+        <file>assets/isotipo_solo.png</file>
+        <file>assets/keyboard_h.svg</file>
+        <file>assets/keyboard_s.svg</file>
+        <file>assets/mute.svg</file>
+        <file>assets/volume_none.svg</file>
+        <file>assets/volume_half.svg</file>
+        <file>assets/volume_full.svg</file>
+        <file>assets/pause.svg</file>
+        <file>assets/play.svg</file>
+        <file>assets/split_h.svg</file>
+        <file>assets/split_v.svg</file>
+        <file>assets/unfocus.svg</file>
+    </qresource>
+
+    <qresource prefix="/schemes">
+        <file>colors/Dause.colorscheme</file>
+    </qresource>
+</RCC>

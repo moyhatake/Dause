@@ -1,0 +1,82 @@
+[Background]        # Vampire Black
+Bold=false
+Color=5,8,14
+
+[BackgroundIntense] # Smoky Black
+Bold=false
+Color=14,11,5
+
+[Foreground]        # Cadet Grey
+Bold=false
+Color=153,160,178
+
+[ForegroundIntense] # Laurel Green
+Bold=false
+Color=178,171,153
+
+[Color0]            # Chinese Black
+Bold=false
+Color=11,15,20
+
+[Color0Intense]     # Smoky Black
+Bold=false
+Color=20,16,11
+
+[Color1]            # Medium Spring Green
+Bold=false
+Color=0,240,176
+
+[Color1Intense]     # Tiffany Blue
+Bold=false
+Color=27,192,181
+
+[Color2]            # Light Salmon
+Bold=false
+Color=255,160,122
+
+[Color2Intense]     # Vivid Raspberry
+Bold=false
+Color=255,0,98
+
+[Color3]            # Ultramarine Blue
+Bold=false
+Color=77,106,255
+
+[Color3Intense]     # Gargoyle Gas
+Bold=false
+Color=255,225,77
+
+[Color4]            # Gargoyle Gas
+Bold=false
+Color=251,231,64
+
+[Color4Intense]     # Ultramarine Blue
+Bold=false
+Color=64,83,251
+
+[Color5]            # Orange-Red
+Bold=false
+Color=255,109,31
+
+[Color5Intense]     # Spiro Disco Ball
+Bold=false
+Color=31,177,255
+
+[Color6]            # Cadet Blue (Crayola)
+Bold=false
+Color=165,176,192
+
+[Color6Intense]     # Silver Pink
+Bold=false
+Color=192,181,165
+
+[Color7]            # Alabaster
+Bold=false
+Color=243,240,231
+
+[Color7Intense]     # Bright Gray
+Bold=false
+Color=231,234,243
+
+[General]
+Description=Dause Colors
