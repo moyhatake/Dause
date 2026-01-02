@@ -99,6 +99,163 @@ private:
     void centerMenu(QMenu *menu);
     void inflateStreamMenu();
 
+    // ---- Styles ----
+    static constexpr const char *MEDIA_STYLE = R"(
+        QWidget {
+            color: #99a0b2;
+            background-color: #05080e;
+        }
+
+        QScrollArea, QFrame {
+            padding: 1px;
+            border-radius: 6px;
+            border: 2px solid #99a0b2;
+        }
+
+        QLabel {
+            border: none;
+        }
+
+        QToolTip {
+            opacity: 128;
+            padding: 0px 3px;
+            color: #99a0b2;
+            border-radius: 6px;
+            border: 1px solid #99a0b2;
+            background-color: #05080e;
+        }
+
+        QSlider::groove:horizontal {
+            height: 5px; 
+            border: none;
+            border-radius: 2px;
+            background: #05080e;
+        }
+
+        QSlider::handle:horizontal {
+            width: 7px;
+            height: 7px;
+            margin: -3px 0;
+            border-radius: 5px;
+            background: #1f2e40;
+            border: 2px solid #99a0b2;
+        }
+
+        QSlider::sub-page:horizontal {
+            border: none;
+            border-radius: 2px;
+            background: #99a0b2;
+        }
+
+        QSlider::add-page:horizontal {
+            border: none;
+            border-radius: 2px;
+            background: #1f2e40;
+        }
+
+        QSlider::handle:horizontal:hover {
+            background: #99a0b2;
+        }
+
+        QScrollBar:vertical {
+            width: 7px;
+            border: none;
+            border-radius: 3px;
+            background: transparent;
+        }
+        QScrollBar::add-line:vertical, 
+        QScrollBar::sub-line:vertical {
+            height: 0px;
+            border: none;
+            background: none;
+            subcontrol-position: top;
+            subcontrol-origin: margin;
+        }
+        QScrollBar::up-arrow:vertical, 
+        QScrollBar::down-arrow:vertical {
+            width: 0px;
+            height: 0px;
+        }
+        QScrollBar::handle:vertical {
+            border: none;
+            min-height: 20px;
+            border-radius: 3px;
+            background: #1f2e40;
+        }
+        QScrollBar::handle:vertical:hover {
+            background: #99a0b2;
+        }
+
+        QScrollBar:horizontal {
+            height: 7px;
+            border: none;
+            border-radius: 3px;
+            background: transparent;
+        }
+        QScrollBar::add-line:horizontal,
+        QScrollBar::sub-line:horizontal {
+            width: 0px;
+            border: none;
+            background: none;
+        }
+        QScrollBar::left-arrow:horizontal,
+        QScrollBar::right-arrow:horizontal {
+            width: 0px;
+            height: 0px;
+        }
+        QScrollBar::handle:horizontal {
+            border: none;
+            min-width: 20px;
+            border-radius: 3px;
+            background: #1f2e40;
+        }
+        QScrollBar::handle:horizontal:hover {
+            background: #99a0b2;
+        }
+
+        QMenu {
+            color: #99a0b2;
+            border-radius: 6px;
+            border: 1px solid #99a0b2;
+            background-color: rgba(5, 8, 14, 128);
+        }
+        QMenu::indicator {
+            width: 0px;
+            height: 0px;
+        }
+        QMenu::item {
+            left: -10px;
+            height: 26px;
+            padding: 0 6px;
+            min-width: 78px;
+            border-radius: 6px;
+        }
+        QMenu::item:selected {
+            background-color: rgba(31, 46, 64, 128);
+        }
+        QMenu::item:checked {
+            color: #05080e;
+            background-color: rgba(153, 160, 178, 128);
+        }
+    )";
+    static constexpr const char *COVER_STYLE = R"(
+        QFrame {
+            padding: 0;
+            border: none;
+            background-color: transparent;
+        }
+    )";
+    static constexpr const char *SUBTITLE_STYLE = R"(
+        QLabel {
+            color: white;
+            font-size: 28px;
+            padding: 3px 9px;
+            margin-bottom: 9px;
+            border-radius: 6px;
+            background: rgba(5, 8, 14, 128);
+        }
+    )";
+    
 private slots:
     void handleSubtitleData(const QString &subtitleText);
 };

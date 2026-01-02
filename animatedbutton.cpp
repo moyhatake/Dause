@@ -63,6 +63,7 @@ void AnimatedButton::updateStyleSheet() {
         QPushButton:pressed {
             background-color: #1f2e40;
         }
+            
         #btnSpace {
             border: 2px solid #99a0b2;
         }

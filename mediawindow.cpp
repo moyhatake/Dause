@@ -6,124 +6,11 @@
 
 MediaWindow::MediaWindow(const QString &path, QWidget *parent)
     : QWidget(parent) {
-    QString mediaStyle = R"(
-        QWidget {
-            color: #99a0b2;
-            background-color: #05080e;
-        }
-
-        QScrollArea, QFrame {
-            padding: 1px;
-            border-radius: 6px;
-            border: 2px solid #99a0b2;
-        }
-
-        QLabel {
-            border: none;
-        }
-
-        QToolTip {
-            opacity: 128;
-            padding: 0px 3px;
-            color: #99a0b2;
-            border-radius: 6px;
-            border: 1px solid #99a0b2;
-            background-color: #05080e;
-        }
-
-        QSlider::groove:horizontal {
-            height: 5px; 
-            border: none;
-            border-radius: 2px;
-            background: #05080e;
-        }
-
-        QSlider::handle:horizontal {
-            width: 7px;
-            height: 7px;
-            margin: -3px 0;
-            border-radius: 5px;
-            background: #1f2e40;
-            border: 2px solid #99a0b2;
-        }
-
-        QSlider::sub-page:horizontal {
-            border: none;
-            border-radius: 2px;
-            background: #99a0b2;
-        }
-
-        QSlider::add-page:horizontal {
-            border: none;
-            border-radius: 2px;
-            background: #1f2e40;
-        }
-
-        QSlider::handle:horizontal:hover {
-            background: #99a0b2;
-        }
-
-        QScrollBar:vertical {
-            width: 7px;
-            border: none;
-            border-radius: 3px;
-            background: transparent;
-        }
-        QScrollBar::add-line:vertical, 
-        QScrollBar::sub-line:vertical {
-            height: 0px;
-            border: none;
-            background: none;
-            subcontrol-position: top;
-            subcontrol-origin: margin;
-        }
-        QScrollBar::up-arrow:vertical, 
-        QScrollBar::down-arrow:vertical {
-            width: 0px;
-            height: 0px;
-        }
-        QScrollBar::handle:vertical {
-            border: none;
-            min-height: 20px;
-            border-radius: 3px;
-            background: #1f2e40;
-        }
-        QScrollBar::handle:vertical:hover {
-            background: #99a0b2;
-        }
-
-        QScrollBar:horizontal {
-            height: 7px;
-            border: none;
-            border-radius: 3px;
-            background: transparent;
-        }
-        QScrollBar::add-line:horizontal,
-        QScrollBar::sub-line:horizontal {
-            width: 0px;
-            border: none;
-            background: none;
-        }
-        QScrollBar::left-arrow:horizontal,
-        QScrollBar::right-arrow:horizontal {
-            width: 0px;
-            height: 0px;
-        }
-        QScrollBar::handle:horizontal {
-            border: none;
-            min-width: 20px;
-            border-radius: 3px;
-            background: #1f2e40;
-        }
-        QScrollBar::handle:horizontal:hover {
-            background: #99a0b2;
-        }
-    )";
     QFileInfo info(path);
     QString ext = info.suffix().toLower();
     setWindowTitle("Dause Media ~ " + info.fileName());
     setWindowIcon(QIcon(":/icons/assets/isotipo_solo.png"));
-    setStyleSheet(mediaStyle);
+    setStyleSheet(MEDIA_STYLE);
     setWindowOpacity(0.75);
     setFocusPolicy(Qt::StrongFocus);
     setFocus();
@@ -252,35 +139,6 @@ bool MediaWindow::eventFilter(QObject *watched, QEvent *event) {
 void MediaWindow::keyPressEvent(QKeyEvent *event) {
     AnimatedButton *targetBtn = nullptr;
 
-    /*switch (event->key()) {
-        case Qt::Key_Space: {
-            playPause->click(); 
-            event->accept();
-            return;
-        }
-        case Qt::Key_Left: {
-            back10->click();
-            event->accept();
-            return;
-        }
-        case Qt::Key_Right: {
-            forward10->click();
-            event->accept();
-            return;
-        }
-        case Qt::Key_M: {
-            mute->click();
-            event->accept();
-            return;
-        }
-        case Qt::Key_F: {
-            focus->click();
-            event->accept();
-            return;
-        }
-        default: break;
-    }*/
-
     switch (event->key()) {
         case Qt::Key_Space:
             targetBtn = playPause;
@@ -343,32 +201,6 @@ void MediaWindow::inflateStreamMenu() {
     if (!streamMenu) {
         streamMenu = new QMenu(this);
         streamMenu->setAttribute(Qt::WA_TranslucentBackground);
-        streamMenu->setStyleSheet(R"(
-            QMenu {
-                color: #99a0b2;
-                border-radius: 6px;
-                border: 1px solid #99a0b2;
-                background-color: rgba(5, 8, 14, 128);
-            }
-            QMenu::indicator {
-                width: 0px;
-                height: 0px;
-            }
-            QMenu::item {
-                left: -10px;
-                height: 26px;
-                padding: 0 6px;
-                min-width: 78px;
-                border-radius: 6px;
-            }
-            QMenu::item:selected {
-                background-color: rgba(31, 46, 64, 128);
-            }
-            QMenu::item:checked {
-                color: #05080e;
-                background-color: rgba(153, 160, 178, 128);
-            }
-        )");
     }
     streamMenu->clear();
     
@@ -492,13 +324,7 @@ void MediaWindow::setupAudio(const QString &path, QVBoxLayout *layout) {
 
     QFrame *coverFrame = new QFrame(this);
     coverFrame->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    coverFrame->setStyleSheet(R"(
-        QFrame {
-            padding: 0;
-            border: none;
-            background-color: transparent;
-        }
-    )");
+    coverFrame->setStyleSheet(COVER_STYLE);
 
     QHBoxLayout *coverLayout = new QHBoxLayout(coverFrame);
     coverLayout->setSpacing(0);
@@ -526,14 +352,14 @@ void MediaWindow::setupAudio(const QString &path, QVBoxLayout *layout) {
 
     // ---- Media Controls ----
     playPause = new AnimatedButton(this);
-    playPause->setToolTip("Pause (Space)");
+    playPause->setToolTip("Pause");
     playPause->setMinimumSize(35, 28);
     playPause->setMaximumSize(35, 28);
     playPause->setIcon(QIcon(":/icons/assets/play.svg"));
     playPause->setFocusPolicy(Qt::NoFocus);
 
     back10 = new AnimatedButton(this);
-    back10->setToolTip("10s (⬅)");
+    back10->setToolTip("10s");
     back10->setMinimumSize(35, 28);
     back10->setMaximumSize(35, 28);
     back10->setIcon(QIcon(":/icons/assets/backward.svg"));
@@ -543,7 +369,7 @@ void MediaWindow::setupAudio(const QString &path, QVBoxLayout *layout) {
     back10->setAutoRepeatInterval(50);
     
     forward10 = new AnimatedButton(this);
-    forward10->setToolTip("10s (➡)");
+    forward10->setToolTip("10s");
     forward10->setMinimumSize(35, 28);
     forward10->setMaximumSize(35, 28);
     forward10->setIcon(QIcon(":/icons/assets/forward.svg"));
@@ -572,7 +398,7 @@ void MediaWindow::setupAudio(const QString &path, QVBoxLayout *layout) {
     volumeSlider->setFocusPolicy(Qt::NoFocus);
 
     mute = new AnimatedButton(this);
-    mute->setToolTip("Mute (M)");
+    mute->setToolTip("Mute");
     mute->setMinimumSize(35, 28);
     mute->setMaximumSize(35, 28);
     mute->setIcon(QIcon(":/icons/assets/volume_full.svg"));
@@ -630,12 +456,12 @@ void MediaWindow::setupAudio(const QString &path, QVBoxLayout *layout) {
         if (player->playbackState() == QMediaPlayer::PlayingState) {
             player->pause();
             icon = QIcon(":/icons/assets/pause.svg");
-            playPause->setToolTip("Play (Space)");
+            playPause->setToolTip("Play");
             wasPlayingBeforeSeek = false;
         } else {
             player->play();
             icon = QIcon(":/icons/assets/play.svg");
-            playPause->setToolTip("Pause (Space)");
+            playPause->setToolTip("Pause");
             wasPlayingBeforeSeek = true;
         }
 
@@ -657,13 +483,13 @@ void MediaWindow::setupAudio(const QString &path, QVBoxLayout *layout) {
         QIcon icon;
         if (audio->isMuted()) {
             icon = QIcon(":/icons/assets/mute.svg");
-            mute->setToolTip("Unmute (M)");
+            mute->setToolTip("Unmute");
         } else {
             double currentVolume = audio->volume() * 100;
             if (currentVolume > 66) icon = QIcon(":/icons/assets/volume_full.svg");
             else if (currentVolume > 33) icon = QIcon(":/icons/assets/volume_half.svg");
             else icon = QIcon(":/icons/assets/volume_none.svg");
-            mute->setToolTip("Mute (M)");
+            mute->setToolTip("Mute");
         }
 
         mute->fadeIconSwap(icon);
@@ -732,7 +558,7 @@ void MediaWindow::setupAudio(const QString &path, QVBoxLayout *layout) {
         if (state == QMediaPlayer::StoppedState) {
             QIcon playIcon(":/icons/assets/pause.svg");
             playPause->setIcon(playIcon);
-            playPause->setToolTip("Play (Space)");
+            playPause->setToolTip("Play");
         }
 	
 	    bool running = (state == QMediaPlayer::PlayingState);
@@ -748,9 +574,14 @@ void MediaWindow::setupAudio(const QString &path, QVBoxLayout *layout) {
     QHBoxLayout *controls = new QHBoxLayout;
     controls->setSpacing(9);
     controls->setContentsMargins(0, 0, 0, 0);
-    controls->addWidget(back10);
-    controls->addWidget(playPause);
-    controls->addWidget(forward10);
+
+    QHBoxLayout *mediaBtns = new QHBoxLayout;
+    mediaBtns->setSpacing(0);
+    mediaBtns->setContentsMargins(0, 0, 0, 0);
+    mediaBtns->addWidget(back10);
+    mediaBtns->addWidget(playPause);
+    mediaBtns->addWidget(forward10);
+    controls->addLayout(mediaBtns);
     controls->addStretch();
 
     controls->addWidget(volumePercentLabel);
@@ -813,30 +644,21 @@ void MediaWindow::setupVideo(const QString &path, QVBoxLayout *layout) {
     // ---- Subtitle Label ----
     subtitleLabel = new QLabel(vidSubContainer);
     subtitleLabel->setAlignment(Qt::AlignCenter);
-    subtitleLabel->setStyleSheet(R"(
-        QLabel {
-            color: white;
-            font-size: 28px;
-            padding: 3px 9px;
-            margin-bottom: 9px;
-            border-radius: 6px;
-            background: rgba(5, 8, 14, 128);
-        }
-    )");
+    subtitleLabel->setStyleSheet(SUBTITLE_STYLE);
     subtitleLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
     subtitleLabel->setAttribute(Qt::WA_TransparentForMouseEvents);
     subtitleLabel->hide();
 
     // ---- Media Controls ----
     playPause = new AnimatedButton(this);
-    playPause->setToolTip("Pause (Space)");
+    playPause->setToolTip("Pause");
     playPause->setMinimumSize(35, 28);
     playPause->setMaximumSize(35, 28);
     playPause->setIcon(QIcon(":/icons/assets/play.svg"));
     playPause->setFocusPolicy(Qt::NoFocus);
 
     back10 = new AnimatedButton(this);
-    back10->setToolTip("10s (⬅)");
+    back10->setToolTip("10s");
     back10->setMinimumSize(35, 28);
     back10->setMaximumSize(35, 28);
     back10->setIcon(QIcon(":/icons/assets/backward.svg"));
@@ -846,7 +668,7 @@ void MediaWindow::setupVideo(const QString &path, QVBoxLayout *layout) {
     back10->setAutoRepeatInterval(50);
     
     forward10 = new AnimatedButton(this);
-    forward10->setToolTip("10s (➡)");
+    forward10->setToolTip("10s");
     forward10->setMinimumSize(35, 28);
     forward10->setMaximumSize(35, 28);
     forward10->setIcon(QIcon(":/icons/assets/forward.svg"));
@@ -875,14 +697,14 @@ void MediaWindow::setupVideo(const QString &path, QVBoxLayout *layout) {
     volumeSlider->setFocusPolicy(Qt::NoFocus);
 
     mute = new AnimatedButton(this);
-    mute->setToolTip("Mute (M)");
+    mute->setToolTip("Mute");
     mute->setMinimumSize(35, 28);
     mute->setMaximumSize(35, 28);
     mute->setIcon(QIcon(":/icons/assets/volume_full.svg"));
     mute->setFocusPolicy(Qt::NoFocus);
 
     focus = new AnimatedButton(this);
-    focus->setToolTip("Focus (F)");
+    focus->setToolTip("Focus");
     focus->setMinimumSize(35, 28);
     focus->setMaximumSize(35, 28);
     focus->setIcon(QIcon(":/icons/assets/unfocus.svg"));
@@ -896,12 +718,12 @@ void MediaWindow::setupVideo(const QString &path, QVBoxLayout *layout) {
         if (player->playbackState() == QMediaPlayer::PlayingState) {
             player->pause();
             icon = QIcon(":/icons/assets/pause.svg");
-            playPause->setToolTip("Play (Space)");
+            playPause->setToolTip("Play");
             wasPlayingBeforeSeek = false;
         } else {
             player->play();
             icon = QIcon(":/icons/assets/play.svg");
-            playPause->setToolTip("Pause (Space)");
+            playPause->setToolTip("Pause");
             wasPlayingBeforeSeek = true;
         }
 
@@ -923,13 +745,13 @@ void MediaWindow::setupVideo(const QString &path, QVBoxLayout *layout) {
         QIcon icon;
         if (audio->isMuted()) {
             icon = QIcon(":/icons/assets/mute.svg");
-            mute->setToolTip("Unmute (M)");
+            mute->setToolTip("Unmute");
         } else {
             double currentVolume = audio->volume() * 100;
             if (currentVolume > 66) icon = QIcon(":/icons/assets/volume_full.svg");
             else if (currentVolume > 33) icon = QIcon(":/icons/assets/volume_half.svg");
             else icon = QIcon(":/icons/assets/volume_none.svg");
-            mute->setToolTip("Mute (M)");
+            mute->setToolTip("Mute");
         }
 
         mute->fadeIconSwap(icon);
@@ -943,11 +765,11 @@ void MediaWindow::setupVideo(const QString &path, QVBoxLayout *layout) {
         if (isVideoFocus) {
             setWindowOpacity(1);
             icon = QIcon(":/icons/assets/focus.svg");
-            focus->setToolTip("Unfocus (F)");
+            focus->setToolTip("Unfocus");
         } else {
             setWindowOpacity(0.75);
             icon = QIcon(":/icons/assets/unfocus.svg");
-            focus->setToolTip("Focus (F)");
+            focus->setToolTip("Focus");
         }
 
         focus->fadeIconSwap(icon);
@@ -1014,7 +836,7 @@ void MediaWindow::setupVideo(const QString &path, QVBoxLayout *layout) {
         if (state == QMediaPlayer::StoppedState) {
             QIcon playIcon(":/icons/assets/pause.svg");
             playPause->setIcon(playIcon);
-            playPause->setToolTip("Play (Space)");
+            playPause->setToolTip("Play");
         }
 
         bool running = (state == QMediaPlayer::PlayingState);
@@ -1024,9 +846,14 @@ void MediaWindow::setupVideo(const QString &path, QVBoxLayout *layout) {
     QHBoxLayout *controls = new QHBoxLayout;
     controls->setSpacing(9);
     controls->setContentsMargins(0, 0, 0, 0);
-    controls->addWidget(back10);
-    controls->addWidget(playPause);
-    controls->addWidget(forward10);
+    
+    QHBoxLayout *mediaBtns = new QHBoxLayout;
+    mediaBtns->setSpacing(0);
+    mediaBtns->setContentsMargins(0, 0, 0, 0);
+    mediaBtns->addWidget(back10);
+    mediaBtns->addWidget(playPause);
+    mediaBtns->addWidget(forward10);
+    controls->addLayout(mediaBtns);
 
     controls->addWidget(timeDisplayLabel);
     controls->addWidget(slider);

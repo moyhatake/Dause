@@ -3,206 +3,13 @@
 #include "mediawindow.h"
 #include "ui_mainwindow.h"
 
-//#include <QDebug>
-
 // ---- App ----
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow) {
     ui->setupUi(this);
     setWindowTitle("Dause Terminal ~ " + getUserInfo());
-
-    // ---- Styling ----
-    QString styleSheet = R"(
-        QMainWindow {
-            border-radius: 6px;
-            border: 2px solid #99a0b2;
-        }
-        
-        QToolTip {
-            opacity: 128;
-            padding: 0px 3px;
-            color: #99a0b2;
-            border-radius: 6px;
-            border: 1px solid #99a0b2;
-            background-color: #05080e;
-        }
-
-        #dockFrame {
-            border-radius: 6px;
-            border: 2px solid #99a0b2;
-        }
-    )";
-    QString scrollStyle = R"(
-        QScrollBar:vertical {
-            width: 7px;
-            border: none;
-            border-radius: 3px;
-            background: transparent;
-        }
-        QScrollBar::add-line:vertical, 
-        QScrollBar::sub-line:vertical {
-            height: 0px;
-            border: none;
-            background: none;
-            subcontrol-position: top;
-            subcontrol-origin: margin;
-        }
-        QScrollBar::up-arrow:vertical, 
-        QScrollBar::down-arrow:vertical {
-            width: 0px;
-            height: 0px;
-        }
-        QScrollBar::handle:vertical {
-            border: none;
-            min-height: 20px;
-            border-radius: 3px;
-            background: #1f2e40;
-        }
-        QScrollBar::handle:vertical:hover {
-            background: #99a0b2;
-        }
-    )";
-    QString explorerStyle = R"(
-        QFileDialog {
-            color: #99a0b2;
-            border-radius: 6px;
-            background-color: #05080e;
-            border: 2px solid #99a0b2;
-        }
-
-        QHeaderView::section {
-            padding: 3px 0;
-            border: none;
-            height: 20px;
-            color: #05080e;
-            background-color: #99a0b2;
-        }
-
-        QPushButton, QToolButton {
-            height: 26px;
-            padding: 0 6px;
-            color: #99a0b2;
-            border-radius: 6px;
-            background-color: transparent;
-        }
-        QPushButton:hover,
-        QToolButton:hover {
-            background-color: #1f2e40;
-        }
-
-        QListView, QTreeView {
-            color: #99a0b2;
-            background-color: #05080e;
-            show-decoration-selected: 1;
-        }
-        QListView::item,
-        QTreeView::item {
-            height: 26px;
-        }
-        QListView::item:selected,
-        QTreeView::item:selected {
-            background-color: #1f2e40;
-        }
-
-        QComboBox {
-            border: none;
-            height: 26px;
-            padding: 0 6px;
-            color: #99a0b2;
-            border-radius: 6px;
-            background-color: #1f2e40;
-        }
-        QComboBox::drop-down {
-            width: 26px;
-            border-radius: 6px;
-            background-color: #1f2e40;
-        }
-        QComboBox::down-arrow {
-            image: url(:/icons/assets/drop_down.svg);
-            width: 20px;
-            height: 20px;
-        }
-        QComboBox QAbstractItemView {
-            border: none;
-            padding: 1px;
-            height: 26px;
-            color: #99a0b2;
-            border-radius: 6px;
-            background-color: #05080e;
-            border: 1px solid #99a0b2;
-            selection-background-color: #1f2e40;
-        }
-
-        QLineEdit {
-            height: 22px;
-            padding: 0 6px;
-            color: #99a0b2;
-            border-radius: 6px;
-            border: 2px solid #99a0b2;
-            background-color: transparent;
-        }
-        QLineEdit:focus {
-            background-color: #1f2e40;
-        }
-
-        QScrollBar:vertical {
-            width: 7px;
-            border: none;
-            border-radius: 3px;
-            background: transparent;
-        }
-        QScrollBar::add-line:vertical, 
-        QScrollBar::sub-line:vertical {
-            height: 0px;
-            border: none;
-            background: none;
-            subcontrol-position: top;
-            subcontrol-origin: margin;
-        }
-        QScrollBar::up-arrow:vertical, 
-        QScrollBar::down-arrow:vertical {
-            width: 0px;
-            height: 0px;
-        }
-        QScrollBar::handle:vertical {
-            border: none;
-            min-height: 20px;
-            border-radius: 3px;
-            background: #1f2e40;
-        }
-        QScrollBar::handle:vertical:hover {
-            background: #99a0b2;
-        }
-
-        QScrollBar:horizontal {
-            height: 7px;
-            border: none;
-            border-radius: 3px;
-            background: transparent;
-        }
-        QScrollBar::add-line:horizontal,
-        QScrollBar::sub-line:horizontal {
-            width: 0px;
-            border: none;
-            background: none;
-        }
-        QScrollBar::left-arrow:horizontal,
-        QScrollBar::right-arrow:horizontal {
-            width: 0px;
-            height: 0px;
-        }
-        QScrollBar::handle:horizontal {
-            border: none;
-            min-width: 20px;
-            border-radius: 3px;
-            background: #1f2e40;
-        }
-        QScrollBar::handle:horizontal:hover {
-            background: #99a0b2;
-        }
-    )";
-    this->setStyleSheet(styleSheet);
+    this->setStyleSheet(APP_STYLE);
     
     // ---- Keyboard Init ----
     initShiftKeys();
@@ -224,50 +31,32 @@ MainWindow::MainWindow(QWidget *parent)
               << ui->btnAcute;
     ui->keyboardFrame->setVisible(false);
     m_keyboardHeightAnimation = new QPropertyAnimation(ui->keyboardFrame, "maximumHeight", this);
-    m_keyboardHeightAnimation->setDuration(ANIMATION_DURATION);
+    m_keyboardHeightAnimation->setDuration(300);
     m_keyboardHeightAnimation->setEasingCurve(QEasingCurve::InOutQuad);
     
-    // ---- Terminal Init ----
-    //ui->terminal->addCustomColorSchemeDir(QCoreApplication::applicationDirPath() + "/colors");
-    ui->terminal->addCustomColorSchemeDir(":/schemes/colors");
-    ui->terminal->setColorScheme("Dause");
-    ui->terminal->setKeyboardCursorShape(QTermWidget::KeyboardCursorShape::IBeamCursor);
-    ui->terminal->setScrollBarPosition(QTermWidget::ScrollBarRight);
-    ui->terminal->setTerminalFont(QFont("Adwaita Mono", 11));
-    ui->terminal->setTerminalSizeHint(false);
-    ui->terminal->setBlinkingCursor(true);
+    // ---- Base Terminal ----
+    rootSplitter = new QSplitter(Qt::Horizontal, ui->terminalWrapper);
+    rootSplitter->setOpaqueResize(false);
+    rootSplitter->setContentsMargins(0, 0, 0, 0);
+    rootSplitter->setChildrenCollapsible(false);
+    rootSplitter->setStretchFactor(0, 1);
 
-    // ---- Working Directory ----
-    ui->terminal->setShellProgram("/bin/zsh");
-    ui->terminal->setWorkingDirectory(QDir::homePath());
-    ui->terminal->startShellProgram();
-    ui->terminal->changeDir(QDir::homePath());
+    QHBoxLayout *layout = new QHBoxLayout(ui->terminalWrapper);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(0);
+    layout->addWidget(rootSplitter);
 
-    // ---- Scrollbar Style ----
-    QScrollBar *scrollbar = ui->terminal->findChild<QScrollBar*>();
-    if (scrollbar) scrollbar->setStyleSheet(scrollStyle);
-
-    // ---- Startup: Terminal Clear & Scrollbar Config ----
-    connect(ui->terminal, &QTermWidget::receivedData, this, [=](const QString &text) {
-        static bool first = true;
-        if (first) {
-            first = false;
-            ui->terminal->sendText("clear\n");
-        }
-
-        QScrollBar *scrollbar = ui->terminal->findChild<QScrollBar*>();
-        if (scrollbar) {
-            if (scrollbar->maximum() > 0) scrollbar->show();
-            else scrollbar->hide();
-        }
-    });
+    DauseTerminal *baseTerm = createTerminal();
+    rootSplitter->addWidget(baseTerm);
+    baseTerm->term()->sendText("clear\n");
+    baseTerm->term()->setFocus();
 
     // ---- Media Explorer Init ----
     mediaDialog = new QFileDialog(this, "Open File");
     mediaDialog->setOption(QFileDialog::DontUseNativeDialog, true);
     mediaDialog->setFileMode(QFileDialog::ExistingFile);
     mediaDialog->setDirectory(QDir::homePath());
-    mediaDialog->setStyleSheet(explorerStyle);
+    mediaDialog->setStyleSheet(EXPLORER_STYLE);
     mediaDialog->setWindowOpacity(0.75);
     mediaDialog->setNameFilter(
         "Images (*.png *.jpg *.jpeg *.webp *.gif);;"
@@ -275,15 +64,13 @@ MainWindow::MainWindow(QWidget *parent)
         "Video (*.mp4 *.mkv *.avi *.mov *.flv)"
     );
 
-    // ---- Close App ----
-    connect(ui->terminal, &QTermWidget::finished, this, &MainWindow::close);
-
     // ---- Dock Buttons ----
     connect(ui->btnSplitV, &QPushButton::clicked, this, &MainWindow::splitVertical);
     connect(ui->btnSplitH, &QPushButton::clicked, this, &MainWindow::splitHorizontal);
     connect(ui->btnExplorer, &QPushButton::clicked, this, &MainWindow::openExplorer);
     connect(mediaDialog, &QFileDialog::fileSelected, this, &MainWindow::openMediaFile);
     connect(ui->btnKeyboard, &QPushButton::clicked, this, &MainWindow::onKeyboardClicked);
+    connect(ui->btnKeybind, &QPushButton::clicked, this, &MainWindow::keybindings);
     
     // ---- Keyboard Keys ----
     connect(ui->btnShiftL, &QPushButton::pressed, this, &MainWindow::onShiftPressed);
@@ -376,14 +163,6 @@ MainWindow::~MainWindow() {
 }
 
 // ---- UI ----
-void MainWindow::splitVertical() {
-
-}
-
-void MainWindow::splitHorizontal() {
-
-}
-
 void MainWindow::initShiftKeys() {
     // ---- Unshifted Text ----
     unshiftedTextMap[ui->btnVerBar]      = "|";
@@ -422,6 +201,240 @@ void MainWindow::initShiftKeys() {
     shiftedTextMap[ui->btnDot]         = ":";
 }
 
+DauseTerminal* MainWindow::createTerminal() {
+    DauseTerminal *wrapper = new DauseTerminal(nullptr);
+    QTermWidget *term = wrapper->term();
+
+    term->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    term->setTerminalFont(QFont("Adwaita Mono", 11));
+    term->setBlinkingCursor(true);
+    term->setTerminalSizeHint(false);
+    term->setScrollBarPosition(QTermWidget::ScrollBarRight);
+    term->setKeyboardCursorShape(QTermWidget::KeyboardCursorShape::IBeamCursor);
+    term->addCustomColorSchemeDir(":/schemes/colors");
+    term->setColorScheme("Dause");
+
+    term->setShellProgram("/bin/zsh");
+    term->setArgs(QStringList() << "-i");
+    term->setWorkingDirectory(QDir::homePath());
+    term->startShellProgram();
+
+    // ---- Scrollbar Style ----
+    if (auto sb = term->findChild<QScrollBar*>()) sb->setStyleSheet(SCROLL_STYLE);
+
+    // ---- Scrollbar Config ----
+    connect(term, &QTermWidget::receivedData, this, [=] {
+        if (auto sb = term->findChild<QScrollBar*>()) {
+            if (sb->maximum() > 0) sb->show();
+            else sb->hide();
+        }
+    });
+
+    // ---- Close Terminal/App ----
+    connect(term, &QTermWidget::finished, this, [=] { closeTerminal(term); });
+
+    term->installEventFilter(this);
+    return wrapper;
+}
+
+void MainWindow::replaceTerminalWithSplitter(Qt::Orientation orientation) {
+    if (!activeTerminal) return;
+
+    if (!canSpawnTerm(orientation)) {
+        triggerAlert(activeTerminal->parentWidget());
+        return;
+    }
+
+    QWidget *activeWrapper = activeTerminal->parentWidget();
+    QSplitter *parentSplitter = qobject_cast<QSplitter*>(activeWrapper->parentWidget());
+
+    if (parentSplitter && parentSplitter->orientation() == orientation) {
+        // ---- Same orientation (EXPANDING, NO NESTING) ----
+        DauseTerminal *newWrapper = createTerminal();
+        int index = parentSplitter->indexOf(activeWrapper);
+        parentSplitter->insertWidget(index + 1, newWrapper);
+        newWrapper->term()->setFocus();
+        
+        QList<int> sizes;
+        for(int i = 0; i < parentSplitter->count(); ++i) sizes << 10000;
+        parentSplitter->setSizes(sizes);
+    } else {
+        // ---- Different orientation ----
+        // Parent's splitter children = 1: Orientation changes (NO NESTING)
+        if (parentSplitter && parentSplitter->count() == 1) {
+            parentSplitter->setOrientation(orientation);
+            replaceTerminalWithSplitter(orientation); 
+            return;
+        }
+
+        // Parent's splitter children > 1 : New splitter (NESTING)
+        QSplitter *newSplitter = new QSplitter(orientation);
+        newSplitter->setOpaqueResize(false);
+        newSplitter->setContentsMargins(0, 0, 0, 0);
+        newSplitter->setChildrenCollapsible(false);
+
+        DauseTerminal *newWrapper = createTerminal();
+        int index = parentSplitter ? parentSplitter->indexOf(activeWrapper) : -1;
+        newSplitter->addWidget(activeWrapper);
+        newSplitter->addWidget(newWrapper);
+        
+        if (parentSplitter) parentSplitter->insertWidget(index, newSplitter);
+        else rootSplitter->addWidget(newSplitter);
+        
+        newWrapper->term()->setFocus();
+
+        newSplitter->setSizes({10000, 10000});
+        
+        QSplitter *targetParent = parentSplitter ? parentSplitter : rootSplitter;
+        QList<int> pSizes;
+        for(int i=0; i < targetParent->count(); ++i) pSizes << 10000;
+        targetParent->setSizes(pSizes);
+    }
+}
+
+int MainWindow::activeTerminals(QWidget *root) {
+    return root->findChildren<QTermWidget*>().count();
+}
+
+bool MainWindow::canSpawnTerm(Qt::Orientation orientation) {
+    if (!activeTerminal || activeTerminals(rootSplitter) >= 16) return false;
+
+    QWidget *activeWrapper = activeTerminal->parentWidget();
+    QSplitter *parentSplitter = qobject_cast<QSplitter*>(activeWrapper->parentWidget());
+
+    // Same orientation (EXPANDING, NO NESTING)
+    if (parentSplitter && parentSplitter->orientation() == orientation) {
+        int nextCount = parentSplitter->count() + 1;
+        if (orientation == Qt::Vertical) {
+            int totalRequired = FRAME_MIN_HEIGHT + (nextCount * MIN_TERM_HEIGHT) + ((nextCount - 1) * HANDLE_WIDTH);
+            return parentSplitter->height() >= totalRequired;
+        } else {
+            int totalRequired = (nextCount * MIN_TERM_WIDTH) + ((nextCount - 1) * HANDLE_WIDTH);
+            return parentSplitter->width() >= totalRequired;
+        }
+    }
+
+    // Different orientation (NESTING)
+    if (orientation == Qt::Vertical) {
+        int minRequired = FRAME_MIN_HEIGHT + (MIN_TERM_HEIGHT * 2) + HANDLE_WIDTH;
+        return activeWrapper->height() >= minRequired;
+    } else {
+        int minRequired = (MIN_TERM_WIDTH * 2) + HANDLE_WIDTH;
+        return activeWrapper->width() >= minRequired;
+    }
+}
+
+void MainWindow::triggerAlert(QWidget *target) {
+    if (!target) return;
+
+    // ---- Blinking Effect ----
+    QGraphicsColorizeEffect *effect = new QGraphicsColorizeEffect(target);
+    target->setGraphicsEffect(effect);
+    effect->setColor(QColor("#ff0062"));
+    effect->setStrength(0);
+
+    QPropertyAnimation *colorAnim = new QPropertyAnimation(effect, "strength");
+    colorAnim->setDuration(300);
+    colorAnim->setStartValue(0.0);
+    colorAnim->setKeyValueAt(0.5, 1.0);
+    colorAnim->setEndValue(0.0);
+
+    // ---- Shake Effect ----
+    QPropertyAnimation *shakeAnim = new QPropertyAnimation(target, "pos");
+    shakeAnim->setDuration(300);
+    QPoint origPos = target->pos();
+    int diff = 5;
+
+    shakeAnim->setStartValue(origPos);
+    shakeAnim->setKeyValueAt(0.1, origPos + QPoint(-diff, 0));
+    shakeAnim->setKeyValueAt(0.3, origPos + QPoint(diff, 0));
+    shakeAnim->setKeyValueAt(0.5, origPos + QPoint(-diff, 0));
+    shakeAnim->setKeyValueAt(0.7, origPos + QPoint(diff, 0));
+    shakeAnim->setKeyValueAt(0.9, origPos + QPoint(-diff, 0));
+    shakeAnim->setEndValue(origPos);
+
+    // ---- Run Together ----
+    QParallelAnimationGroup *group = new QParallelAnimationGroup(this);
+    group->addAnimation(colorAnim);
+    group->addAnimation(shakeAnim);
+
+    // ---- Cleanup ----
+    connect(group, &QAnimationGroup::finished, [=]() {
+        target->setGraphicsEffect(nullptr);
+        group->deleteLater();
+        activeTerminal->setFocus();
+    });
+
+    group->start();
+}
+
+void MainWindow::closeTerminal(QTermWidget *target) {
+    if (!target) return;
+    
+    if (activeTerminals(rootSplitter) <= 1) {
+        this->close();
+        return;
+    }
+
+    QWidget *wrapperToDelete = target->parentWidget();
+    QSplitter *splitter = qobject_cast<QSplitter*>(wrapperToDelete->parentWidget());
+
+    if (activeTerminal == target) activeTerminal = nullptr;
+
+    // Switch focus to immediate sibling
+    bool focusFound = false;
+    if (splitter && splitter->count() > 1) {
+        int index = splitter->indexOf(wrapperToDelete);
+        int siblingIndex = (index == 0) ? 1 : index - 1;
+        
+        if (auto sibWrapper = splitter->widget(siblingIndex)) {
+            if (auto sibTerm = sibWrapper->findChild<QTermWidget*>()) {
+                sibTerm->setFocus();
+                focusFound = true;
+            }
+        }
+    }
+
+    // Fallback: Switch focus to a valid terminal
+    if (!focusFound) {
+        QList<QTermWidget*> allTerms = rootSplitter->findChildren<QTermWidget*>();
+        for (auto t : allTerms) {
+            if (t != target) {
+                activeTerminal = t;
+                activeTerminal->setFocus();
+                break;
+            }
+        }
+    }
+
+    wrapperToDelete->deleteLater();
+
+    // Cleanup redundant splitters
+    QTimer::singleShot(0, this, [=]() {
+        if (splitter && splitter->count() == 1 && splitter != rootSplitter) {
+            QWidget *remaining = splitter->widget(0);
+            QSplitter *gp = qobject_cast<QSplitter*>(splitter->parentWidget());
+            if (gp) {
+                int index = gp->indexOf(splitter);
+                gp->insertWidget(index, remaining);
+                splitter->deleteLater();
+                
+                QList<int> s;
+                for(int i=0; i < gp->count(); ++i) s << 10000;
+                gp->setSizes(s);
+            }
+        }
+    });
+}
+
+void MainWindow::splitVertical() {
+    replaceTerminalWithSplitter(Qt::Vertical);
+}
+
+void MainWindow::splitHorizontal() {
+    replaceTerminalWithSplitter(Qt::Horizontal);
+}
+
 void MainWindow::openExplorer() {
     mediaDialog->open();
 }
@@ -439,9 +452,8 @@ void MainWindow::onKeyboardClicked() {
     if (m_keyboardHeightAnimation->state() == QAbstractAnimation::Running)
         m_keyboardHeightAnimation->stop();
 
-    int targetHeight = keyboardMaxHeight(width());
-
-    if (ui->keyboardFrame->isVisible() && ui->keyboardFrame->maximumHeight() >= FRAME_MIN_HEIGHT) {
+    //if (ui->keyboardFrame->isVisible() && ui->keyboardFrame->maximumHeight() >= FRAME_MIN_HEIGHT) {
+    if (ui->keyboardFrame->isVisible() && ui->keyboardFrame->height() >= targetKeyboardHeight) {
         // Hide
         keyboardIcon = QIcon(":/icons/assets/keyboard_s.svg");
 
@@ -451,10 +463,10 @@ void MainWindow::onKeyboardClicked() {
         m_keyboardHeightAnimation->setEndValue(0);
         m_keyboardHeightAnimation->start();
 
-        QObject::connect(m_keyboardHeightAnimation, &QPropertyAnimation::finished, this, [this, targetHeight]() {
+        QObject::connect(m_keyboardHeightAnimation, &QPropertyAnimation::finished, this, [this]() {
             ui->keyboardFrame->setVisible(false);
-            ui->keyboardFrame->setMinimumHeight(FRAME_MIN_HEIGHT);
-            ui->keyboardFrame->setMaximumHeight(targetHeight);
+            ui->keyboardFrame->setMinimumHeight(targetKeyboardHeight);
+            ui->keyboardFrame->setMaximumHeight(targetKeyboardHeight);
             ui->btnKeyboard->setToolTip("Show Keyboard");
         }, Qt::SingleShotConnection);
     } else {
@@ -465,12 +477,12 @@ void MainWindow::onKeyboardClicked() {
         ui->keyboardFrame->setVisible(true);
 
         m_keyboardHeightAnimation->setStartValue(0);
-        m_keyboardHeightAnimation->setEndValue(targetHeight);
+        m_keyboardHeightAnimation->setEndValue(targetKeyboardHeight);
         m_keyboardHeightAnimation->start();
 
-        QObject::connect(m_keyboardHeightAnimation, &QPropertyAnimation::finished, this, [this, targetHeight]() {
-            ui->keyboardFrame->setMinimumHeight(FRAME_MIN_HEIGHT);
-            ui->keyboardFrame->setMaximumHeight(targetHeight);
+        QObject::connect(m_keyboardHeightAnimation, &QPropertyAnimation::finished, this, [this]() {
+            ui->keyboardFrame->setMinimumHeight(targetKeyboardHeight);
+            ui->keyboardFrame->setMaximumHeight(targetKeyboardHeight);
             ui->btnKeyboard->setToolTip("Hide Keyboard");
         }, Qt::SingleShotConnection);
     }
@@ -480,28 +492,7 @@ void MainWindow::onKeyboardClicked() {
         dockKeyboard->animateCapsState(false);
     }
     
-    ui->terminal->setFocus();
-}
-
-int MainWindow::keyboardMaxHeight(int currentScreenWidth) const {
-    if (currentScreenWidth <= SCREEN_MIN_WIDTH)
-        return FRAME_MAX_HEIGHT;
-
-    const int SCREEN_WIDTH_RANGE = SCREEN_MAX_WIDTH - SCREEN_MIN_WIDTH;
-    const int FRAME_WIDTH_RANGE = FRAME_MAX_WIDTH - FRAME_MIN_WIDTH;
-    const int FRAME_HEIGHT_RANGE = FRAME_MAX_HEIGHT - FRAME_MIN_HEIGHT;
-
-    int widthDifference = currentScreenWidth - SCREEN_MIN_WIDTH;
-
-    double scaleFactor = 0.0;
-    if (currentScreenWidth < SCREEN_MAX_WIDTH)
-        scaleFactor = (double)widthDifference / SCREEN_WIDTH_RANGE;
-    else
-        scaleFactor = 1.0;
-        
-    int newMaxHeight = FRAME_MIN_HEIGHT + qRound(FRAME_HEIGHT_RANGE * scaleFactor);
-
-    return qMin(newMaxHeight, FRAME_MAX_HEIGHT);
+    activeTerminal->setFocus();
 }
 
 void MainWindow::onShiftPressed() {
@@ -532,7 +523,7 @@ void MainWindow::onShiftReleased() {
             if (unshiftedTextMap.contains(button)) button->setText(unshiftedTextMap[button]);
         }
         
-        ui->terminal->setFocus();
+        activeTerminal->setFocus();
     }
 }
 
@@ -562,7 +553,7 @@ void MainWindow::onCapsClicked() {
     AnimatedButton *capsButton = qobject_cast<AnimatedButton*>(ui->btnCaps);
     if (capsButton) capsButton->animateCapsState(isCaps);
 
-    ui->terminal->setFocus();    
+    activeTerminal->setFocus();    
 }
 
 void MainWindow::onKeyClicked() {
@@ -641,8 +632,8 @@ void MainWindow::onKeyClicked() {
         keyValue = letterAndModifiers(letter);
     }
 
-    ui->terminal->sendText(keyValue);
-    ui->terminal->setFocus();
+    activeTerminal->sendText(keyValue);
+    activeTerminal->setFocus();
 
     // HOME & END keys get stuck if setDown(true)
     if (button != ui->btnHome && button != ui->btnEnd) button->setDown(true);
@@ -663,23 +654,39 @@ QString MainWindow::makeCSI(const QString& finalLetter, const QString& prefix) {
 QString MainWindow::letterAndModifiers(QString letter) {
     // GUI Shortcuts
     if (isCtrl && isShift) {
+        // Spawn Vertical Terminal
+        if (letter == "b") {
+            splitVertical();
+            return QString();
+        }
+        // Spawn Horizontal Terminal
+        if (letter == "h") {
+            splitHorizontal();
+            return QString();
+        }
+        // Open Media Explorer
+        if (letter == "e") {
+            openExplorer();
+            return QString();
+        }
+        // Toggle Keyboard
+        if (letter == "k") {
+            onKeyboardClicked();
+            return QString();
+        }
+        // Copy
         if (letter == "c") {
-            ui->terminal->copyClipboard();
+            activeTerminal->copyClipboard();
             return QString();
         }
+        // Paste
         if (letter == "v") {
-            ui->terminal->pasteClipboard();
+            activeTerminal->pasteClipboard();
             return QString();
         }
-        /*if (letter == "a") { // Double-check
-            int rows = ui->terminal->historyLinesCount();
-            int columns = ui->terminal->screenColumnsCount();
-            ui->terminal->setSelectionStart(0, 0);
-            ui->terminal->setSelectionEnd(rows - 1, columns - 1);
-            return QString();
-        }*/
+        // Close Terminal
         if (letter == "q" || letter == "w") {
-            this->close();
+            if (activeTerminal) closeTerminal(activeTerminal);
             return QString();
         }
     }
@@ -797,17 +804,58 @@ QString MainWindow::getUserInfo() {
     return final_username + "@" + final_hostname;
 }
 
+void MainWindow::keybindings() {
+    QDialog *dialog = new QDialog(this);
+    dialog->setWindowTitle("Keybindings");
+    dialog->setWindowFlags(Qt::Dialog | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+    dialog->setWindowOpacity(0.75);
+    dialog->setFixedSize(360, 360);
+
+    QVBoxLayout *layout = new QVBoxLayout(dialog);
+    QLabel *text = new QLabel();
+    QString html = R"(
+        <style>
+            .header { font-size: 16px; }
+            .key { font-family: monospace; color: white; }
+            .desc { color: #99a0b2; padding-left: 9px; }
+        </style>
+        
+        <div class='header'><b>APP</b></div>
+        <table>
+            <tr><td><span class='key'>Ctrl+Shift+B</span></td><td class='desc'>Spawn Vertical Terminal</td></tr>
+            <tr><td><span class='key'>Ctrl+Shift+H</span></td><td class='desc'>Spawn Horizontal Terminal</td></tr>
+            <tr><td></td><td class='desc'>(Limit: 16 Terminals)</td></tr>
+            <tr><td><span class='key'>Ctrl+Shift+E</span></td><td class='desc'>Open Media Explorer</td></tr>
+            <tr><td><span class='key'>Esc</span></td><td class='desc'>Close Media Explorer</td></tr>
+            <tr><td><span class='key'>Ctrl+Shift+K</span></td><td class='desc'>Toggle Virtual Keyboard</td></tr>
+            <tr><td><span class='key'>Ctrl+Shift+Q/W</span></td><td class='desc'>Close Active Terminal</td></tr>
+            <tr></tr>
+        </table>
+        
+        <div class='header'><b>MEDIA</b></div>
+        <table>
+            <tr><td><span class='key'>Space</span></td><td class='desc'>Play / Pause</td></tr>
+            <tr><td><span class='key'>← / →</span></td><td class='desc'>Seek -/+ 10 seconds</td></tr>
+            <tr><td><span class='key'>M</span></td><td class='desc'>Mute / Unmute Audio</td></tr>
+            <tr><td><span class='key'>F</span></td><td class='desc'>Toggle Transparency (Video)</td></tr>
+        </table>
+    )";
+    text->setText(html);
+    layout->addWidget(text);
+    dialog->exec();
+    
+    QRect screenGeometry = QGuiApplication::primaryScreen()->geometry();
+    int x = (screenGeometry.width() - dialog->width()) / 2;
+    int y = (screenGeometry.height() - dialog->height()) / 2;
+    dialog->move(x, y);
+}
+
 // ---- Screen/Keyboard Resizing
 void MainWindow::resizeEvent(QResizeEvent *event) {
     QMainWindow::resizeEvent(event);
 
+    // ---- Update Keyboard ----    
     int currentScreenWidth = event->size().width();
-
-    if (currentScreenWidth <= SCREEN_MIN_WIDTH) {
-        ui->keyboardFrame->setMinimumSize(FRAME_MIN_WIDTH, FRAME_MIN_HEIGHT);
-        ui->keyboardFrame->setMaximumSize(FRAME_MAX_WIDTH, FRAME_MAX_HEIGHT); 
-        return; 
-    }
 
     const int SCREEN_WIDTH_RANGE = SCREEN_MAX_WIDTH - SCREEN_MIN_WIDTH;
     const int FRAME_WIDTH_RANGE = FRAME_MAX_WIDTH - FRAME_MIN_WIDTH;
@@ -825,8 +873,9 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
 
     newMaxWidth = qMin(newMaxWidth, FRAME_MAX_WIDTH);
     newMaxHeight = qMin(newMaxHeight, FRAME_MAX_HEIGHT);
+    targetKeyboardHeight = newMaxHeight;
     
-    ui->keyboardFrame->setMinimumSize(FRAME_MIN_WIDTH, FRAME_MIN_HEIGHT);
+    ui->keyboardFrame->setMinimumSize(newMaxWidth, newMaxHeight);
     ui->keyboardFrame->setMaximumSize(newMaxWidth, newMaxHeight);
     ui->keyboardFrame->resize(newMaxWidth, newMaxHeight);
     ui->keyboardFrame->updateGeometry();
@@ -834,6 +883,55 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
 
 // ---- GUI Shortcuts ----
 bool MainWindow::eventFilter(QObject *obj, QEvent *event) {
+    // ---- Focus Terminal ----
+    if (event->type() == QEvent::FocusIn || event->type() == QEvent::MouseButtonPress) {
+        // Gets direct QTermWidget or parent QTermWidget from QWidget child
+        QTermWidget *term = qobject_cast<QTermWidget*>(obj);
+        if (!term && obj->parent()) term = qobject_cast<QTermWidget*>(obj->parent());
+
+        if (term && term != activeTerminal) {
+            if (activeTerminal && activeTerminal->parentWidget()) {
+                activeTerminal->parentWidget()->setProperty("focused", false);
+                activeTerminal->parentWidget()->style()->unpolish(activeTerminal->parentWidget());
+                activeTerminal->parentWidget()->style()->polish(activeTerminal->parentWidget());
+            }
+
+            activeTerminal = term;
+
+            if (activeTerminal->parentWidget()) {
+                activeTerminal->parentWidget()->setProperty("focused", true);
+                activeTerminal->parentWidget()->style()->unpolish(activeTerminal->parentWidget());
+                activeTerminal->parentWidget()->style()->polish(activeTerminal->parentWidget());
+            }
+
+            return true;
+        }
+    }
+
+    // ---- Close Terminal Button ----
+    if (event->type() == QEvent::ContextMenu) {
+        QTermWidget *targetTerm = qobject_cast<QTermWidget*>(obj);
+        if (!targetTerm && obj->parent()) targetTerm = qobject_cast<QTermWidget*>(obj->parent());
+
+        if (targetTerm) {
+            QMenu menu(this);
+            QAction *closeAction = menu.addAction("Close Terminal");
+
+            QPoint globalCenter = targetTerm->mapToGlobal(targetTerm->rect().center());
+            QSize menuSize = menu.sizeHint();
+            QPoint centeredPos(
+                globalCenter.x() - (menuSize.width() / 2),
+                globalCenter.y() - (menuSize.height() / 2)
+            );
+
+            QAction *selected = menu.exec(centeredPos);
+            if (selected == closeAction) closeTerminal(targetTerm);
+
+            return true;
+        }
+    }
+
+    // ---- Keyboard Shortcuts ----
     if (event->type() == QEvent::KeyPress) {
         QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
 
@@ -841,28 +939,45 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event) {
         if (keyEvent->key() == Qt::Key_Control) onCtrlPressed();
 
         if (isCtrl && isShift) {
+            // Spawn Vertical Terminal
+            if (keyEvent->key() == Qt::Key_B) {
+                splitVertical();
+                return true;
+            }
+            // Spawn Horizontal Terminal
+            if (keyEvent->key() == Qt::Key_H) {
+                splitHorizontal();
+                return true;
+            }
+            // Open Media Explorer
+            if (keyEvent->key() == Qt::Key_E) {
+                openExplorer();
+                return true;
+            }
+            // Toggle Keyboard
+            if (keyEvent->key() == Qt::Key_K) {
+                onKeyboardClicked();
+                return true;
+            }
+            // Copy
             if (keyEvent->key() == Qt::Key_C) {
-                ui->terminal->copyClipboard();
+                activeTerminal->copyClipboard();
                 return true;
             }
+            // Paste
             if (keyEvent->key() == Qt::Key_V) {
-                ui->terminal->pasteClipboard();
+                activeTerminal->pasteClipboard();
                 return true;
             }
-            /*if (keyEvent->key() == Qt::Key_A) { // Double-check
-                int rows = ui->terminal->historyLinesCount();
-                int columns = ui->terminal->screenColumnsCount();
-                ui->terminal->setSelectionStart(0, 0);
-                ui->terminal->setSelectionEnd(rows - 1, columns - 1);
-                return true;
-            }*/
+            // Close Terminal
             if (keyEvent->key() == Qt::Key_Q || keyEvent->key() == Qt::Key_W) {
-                this->close();
+                if (activeTerminal) closeTerminal(activeTerminal);
                 return true;
             }
         }
     }
 
+    // ---- Keyboard Release ----
     if (event->type() == QEvent::KeyRelease) {
         QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
         

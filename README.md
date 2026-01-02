@@ -1,5 +1,5 @@
 # D.A.U.S.E.  
-Digital Agent-User System Environment  
+Digital Amplified User System Environment  
 
 ## Dependencies  
 ### Qt 6
@@ -9,10 +9,18 @@ Digital Agent-User System Environment
 `sudo pamac build qtermwidget-git`    
 
 ### QMediaPlayer
-`sudo pacman -S qt6-multimedia` → Choose FFmpeg Option (1)  
+`sudo pacman -S qt6-multimedia` → Choose FFmpeg Option (**1**)  
 
 ### FFTW (https://www.fftw.org/)  
 `sudo pacman -S fftw`  
 
 ### FFmpeg  
 `sudo pacman -S ffmpeg`  
+
+## To-Fix  
+Duplicated Powerlines when spawning a new terminal (sometimes)  
+
+## Notes  
+Add the following lines at the bottom of the **~/.zshrc** file:  
+`bindkey '^?' backward-delete-char`  
+`bindkey '^H' backward-delete-char`  

@@ -1,10 +1,10 @@
-[Background]        # Vampire Black
+[Background]        # Ink Black
 Bold=false
 Color=5,8,14
 
-[BackgroundIntense] # Smoky Black
+[BackgroundIntense] # Mirage
 Bold=false
-Color=14,11,5
+Color=19,27,44
 
 [Foreground]        # Cadet Grey
 Bold=false

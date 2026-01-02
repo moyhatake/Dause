@@ -23,6 +23,8 @@ add_executable(${PROJECT_NAME}
     animatedbutton.h
     animatedbutton.cpp
     app.qrc
+    dauseterminal.h
+    dauseterminal.cpp
     ffmpegaudioanalyzer.h
     ffmpegaudioanalyzer.cpp
     ffmpegsubtitleanalyzer.h

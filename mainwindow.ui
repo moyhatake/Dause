@@ -627,7 +627,7 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="spacing">
-     <number>9</number>
+     <number>7</number>
     </property>
     <property name="sizeConstraint">
      <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
@@ -658,6 +658,9 @@
       <property name="rightMargin">
        <number>0</number>
       </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
       <item>
        <spacer name="dockLeftSpacer">
         <property name="orientation">
@@ -684,7 +687,7 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>167</width>
+          <width>175</width>
           <height>32</height>
          </size>
         </property>
@@ -727,12 +730,47 @@
            <property name="rightMargin">
             <number>0</number>
            </property>
-           <property name="horizontalSpacing">
-            <number>9</number>
-           </property>
-           <property name="verticalSpacing">
+           <property name="spacing">
             <number>0</number>
            </property>
+           <item row="0" column="6">
+            <widget class="AnimatedButton" name="btnSplitH">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>35</width>
+               <height>28</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="focusPolicy">
+              <enum>Qt::FocusPolicy::ClickFocus</enum>
+             </property>
+             <property name="toolTip">
+              <string>Horizontal Split</string>
+             </property>
+             <property name="toolTipDuration">
+              <number>5000</number>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="app.qrc">
+               <normaloff>:/icons/assets/split_h.svg</normaloff>:/icons/assets/split_h.svg</iconset>
+             </property>
+            </widget>
+           </item>
            <item row="0" column="8">
             <widget class="AnimatedButton" name="btnKeyboard">
              <property name="sizePolicy">
@@ -847,8 +885,8 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="6">
-            <widget class="AnimatedButton" name="btnSplitH">
+           <item row="0" column="9">
+            <widget class="AnimatedButton" name="btnKeybind">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -861,17 +899,11 @@
                <height>28</height>
               </size>
              </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>16777215</height>
-              </size>
-             </property>
              <property name="focusPolicy">
               <enum>Qt::FocusPolicy::ClickFocus</enum>
              </property>
              <property name="toolTip">
-              <string>Horizontal Split</string>
+              <string>Keybindings</string>
              </property>
              <property name="toolTipDuration">
               <number>5000</number>
@@ -881,7 +913,7 @@
              </property>
              <property name="icon">
               <iconset resource="app.qrc">
-               <normaloff>:/icons/assets/split_h.svg</normaloff>:/icons/assets/split_h.svg</iconset>
+               <normaloff>:/icons/assets/shortcuts.svg</normaloff>:/icons/assets/shortcuts.svg</iconset>
              </property>
             </widget>
            </item>
@@ -909,84 +941,26 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="terminalWrapper">
-      <property name="spacing">
-       <number>0</number>
+     <widget class="QWidget" name="terminalWrapper" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
-      <property name="rightMargin">
-       <number>0</number>
+      <property name="minimumSize">
+       <size>
+        <width>620</width>
+        <height>0</height>
+       </size>
       </property>
-      <property name="bottomMargin">
-       <number>0</number>
+      <property name="font">
+       <font>
+        <family>Adwaita Mono</family>
+        <pointsize>11</pointsize>
+       </font>
       </property>
-      <item>
-       <spacer name="leftTerminalSpacer">
-        <property name="orientation">
-         <enum>Qt::Orientation::Horizontal</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Policy::Preferred</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QTermWidget" name="terminal" native="true">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>620</width>
-          <height>28</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>1440</width>
-          <height>1042</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Adwaita Mono</family>
-          <pointsize>11</pointsize>
-          <stylestrategy>PreferDefault</stylestrategy>
-         </font>
-        </property>
-        <property name="cursor">
-         <cursorShape>IBeamCursor</cursorShape>
-        </property>
-        <property name="focusPolicy">
-         <enum>Qt::FocusPolicy::StrongFocus</enum>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="rightTerminalSpacer">
-        <property name="orientation">
-         <enum>Qt::Orientation::Horizontal</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Policy::Preferred</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
+     </widget>
     </item>
     <item>
      <layout class="QHBoxLayout" name="keyboardWrapper">
@@ -4248,12 +4222,6 @@
    <class>AnimatedButton</class>
    <extends>QPushButton</extends>
    <header>animatedbutton.h</header>
-  </customwidget>
-  <customwidget>
-   <class>QTermWidget</class>
-   <extends>QWidget</extends>
-   <header>qtermwidget.h</header>
-   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>

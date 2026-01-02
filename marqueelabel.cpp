@@ -73,6 +73,5 @@ void MarqueeLabel::paintEvent(QPaintEvent *event) {
         QRect loopRect = textRect;
         loopRect.setX(textRect.x() + textWidth + 172);
         painter.drawText(loopRect, alignment(), text());
-    } else
-        painter.drawText(textRect, alignment(), text());
+    } else painter.drawText(textRect, alignment(), text());
 }
