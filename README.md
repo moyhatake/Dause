@@ -21,6 +21,6 @@ Digital Amplified User System Environment
 Duplicated Powerlines when spawning a new terminal (sometimes)  
 
 ## Notes  
-Add the following lines at the bottom of the **~/.zshrc** file:  
+If Delete key (from physical keyboard) removes words and not characters, add the following lines at the bottom of the **~/.zshrc** file:  
 `bindkey '^?' backward-delete-char`  
 `bindkey '^H' backward-delete-char`  
