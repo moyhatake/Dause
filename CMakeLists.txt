@@ -9,7 +9,6 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(qtermwidget6_DIR "/usr/lib/cmake/qtermwidget6")
 find_package(Qt6 REQUIRED COMPONENTS Core Multimedia MultimediaWidgets Network Widgets)
 find_package(qtermwidget6 REQUIRED)
 find_package(FFTW3 REQUIRED)
@@ -50,7 +49,6 @@ add_executable(${PROJECT_NAME}
 target_include_directories(${PROJECT_NAME}
     PRIVATE 
     ${CMAKE_CURRENT_SOURCE_DIR}
-    /usr/include
 )
 
 target_link_libraries(${PROJECT_NAME}
@@ -72,3 +70,6 @@ target_link_libraries(${PROJECT_NAME}
     swresample # Audio Conversion/Resampling          [Optional]
     swscale    # Image Scaling/Color Space Conversion [Optional]
 )
+
+include(GNUInstallDirs)
+install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
