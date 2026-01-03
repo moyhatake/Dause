@@ -40,14 +40,44 @@
 `sudo pacman -S ffmpeg`  
 
 ## Installation 
+### Arch Linux
+Dause is available in the Arch User Repository (AUR). You can install it using any AUR helper:  
+`pamac build dause` (Manjaro Native GUI/CLI **Add/Remove Software**)  
+`yay -S dause`  
+`paru -S dause`  
+
+If you don't have an AUR helper, you can build it manually:  
+```bash
+git clone https://aur.archlinux.org/dause.git
+cd dause
+makepkg -si
 ```
-git clone https://github.com/user/Dause.git  
-cd Dause  
-mkdir build && cd build  
-qmake6 ...  
-make  
-./dause
-```  
+
+### General Linux (Building from Source)  
+Use this method if you want to contribute to development or are using a non-Arch distribution.  
+**Dependencies**: Ensure you have the following installed:
+* **cmake**
+* **ffmpeg**
+* **fftw**
+* **qt6-multimedia**
+* **qtermwidget**
+
+Build steps:  
+```bash
+# Clone the repository
+git clone https://github.com/moyhatake/Dause.git
+cd Dause
+
+# Create build directory
+mkdir build && cd build
+
+# Configure and build (Release mode recommended)
+cmake -DCMAKE_BUILD_TYPE=Release ..
+make -j$(nproc)
+
+# Run the application
+./Dause
+```
 
 ## Shell Configuration (Optional)
 If the Delete key on your physical keyboard removes entire words instead of single characters, add these lines to the bottom of your **~/.zshrc**:  
