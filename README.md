@@ -42,7 +42,7 @@
 ## Installation 
 ### Arch Linux
 Dause is available in the Arch User Repository (AUR). You can install it using any AUR helper:  
-`pamac build dause` (Manjaro Native GUI/CLI **Add/Remove Software**)  
+`pamac build dause` (or use the **Add/Remove Software** GUI)  
 `yay -S dause`  
 `paru -S dause`  
 
