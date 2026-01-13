@@ -6,7 +6,7 @@ Color=5,8,14
 Bold=false
 Color=19,27,44
 
-[Foreground]        # Cadet Grey
+[Foreground]        # Santas Grey
 Bold=false
 Color=153,160,178
 
@@ -14,13 +14,13 @@ Color=153,160,178
 Bold=false
 Color=178,171,153
 
-[Color0]            # Chinese Black
+[Color0]            # Deep Obsidian
 Bold=false
-Color=11,15,20
+Color=22,28,38
 
-[Color0Intense]     # Smoky Black
+[Color0Intense]     # Polished Slate
 Bold=false
-Color=20,16,11
+Color=67,76,94
 
 [Color1]            # Medium Spring Green
 Bold=false
@@ -46,13 +46,13 @@ Color=77,106,255
 Bold=false
 Color=255,225,77
 
-[Color4]            # Gargoyle Gas
+[Color4]            # Comet
 Bold=false
-Color=251,231,64
+Color=31,46,64
 
-[Color4Intense]     # Ultramarine Blue
+[Color4Intense]     # Spring Green (Traditional)
 Bold=false
-Color=64,83,251
+Color=141,217,126
 
 [Color5]            # Orange-Red
 Bold=false
@@ -70,13 +70,13 @@ Color=165,176,192
 Bold=false
 Color=192,181,165
 
-[Color7]            # Alabaster
+[Color7]            # Silver Cloud
 Bold=false
-Color=243,240,231
+Color=216,222,233
 
-[Color7Intense]     # Bright Gray
+[Color7Intense]     # Frosted White
 Bold=false
-Color=231,234,243
+Color=236,239,244
 
 [General]
 Description=Dause Colors
