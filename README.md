@@ -6,7 +6,7 @@
 ## Features  
 * **Arch Native**: Designed with the Arch Linux philosophy of simplicity and user-centricity.
 * **ZSH Optimized**: Tailored to work out-of-the-box with ZSH workflows.
-* **Touch-First Input**: A reimagined virtual Kkyboard engineered specifically for touch devices.
+* **Touch-First Input**: A reimagined virtual keyboard engineered specifically for touch devices.
 * **Media Amplified**: Built-in integration for media visualization and playback (FFmpeg & FFTW).
 * **Parallel Workflow**: Spawn and manage multiple parallel tabs for complex multitasking.
 * **Retro-Modern UI**: A minimalist, distraction-free interface with a classic digital vibe.
