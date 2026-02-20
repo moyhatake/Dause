@@ -1,3 +1,8 @@
+<p align="center">
+  <img src="assets/logos/isotipo.png" alt="D.A.U.S.E. logo" width="96" />
+</p>
+<p align="center">Retro-Futuristic Terminal Emulator Built for Arch and Beyond</p>
+
 # D.A.U.S.E.   
 **Digital Amplified User System Environment** is a retro-futuristic, minimalist terminal emulator purpose-built for **Arch Linux**. It blends the raw aesthetic of vintage computing with high-performance modern features, including a virtual terminal, media visualization and a robust parallel tab system.  
 
