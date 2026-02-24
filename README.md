@@ -12,9 +12,24 @@
 * **Arch Native**: Designed with the Arch Linux philosophy of simplicity and user-centricity.
 * **ZSH Optimized**: Tailored to work out-of-the-box with ZSH workflows.
 * **Touch-First Input**: A reimagined virtual keyboard engineered specifically for touch devices.
-* **Media Amplified**: Built-in integration for media visualization and playback (FFmpeg & FFTW).
+* **Media Amplified**: Built-in integration for media visualization and playback (Images, Audio and Video).
 * **Parallel Workflow**: Spawn and manage multiple parallel tabs for complex multitasking.
 * **Retro-Modern UI**: A minimalist, distraction-free interface with a classic digital vibe.
+* **Built-In Commands**: A set of commands built-in to the application for quick access to common tasks.
+
+## Commands
+Dause can be launched directly from the terminal with arguments to handle media files or check system information.
+
+### Arguments & Flags
+| Command / Flag | Description |
+| :--- | :--- |
+| `Dause` | Launches the default terminal instance. |
+| `Dause <file>` | Opens the specified media file (Image, Audio, Video) in a dedicated handler. |
+| | `Dause image.jpg` (Open an image from your current directory) |
+| | `Dause ~/Pictures/audio.mp3` (Open an audio from your home directory) |
+| | `Dause /home/user/Videos/video.mp4` (Open a video from your home directory) |
+| `Dause -v`, `--version` | Displays the current version of Dause. |
+| `Dause -h`, `--help` | Displays the help menu and available options. |
 
 ## Interface  
 <div style="display: flex; overflow-x: auto; gap: 9px; padding: 0px; white-space: nowrap;">
