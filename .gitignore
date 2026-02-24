@@ -1,3 +1,6 @@
+.qtcreator/
 build/
 dause/
+
 DEVELOPMENT.md
+CMakeLists.txt.user
