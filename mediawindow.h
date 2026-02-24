@@ -26,6 +26,7 @@
 #include <QMediaPlayer>
 #include <QAudioOutput>
 #include <QMediaMetaData>
+#include "animatedbutton.h"
 #include "spectrumwidget.h"
 #include "videolayerwidget.h"
 #include "roundedimagelabel.h"
@@ -40,6 +41,10 @@ class MediaWindow : public QWidget {
 
 public:
     explicit MediaWindow(const QString &path, QWidget *parent = nullptr);
+    static bool isSupported(const QString &path);
+    static bool isImage(const QString &ext);
+    static bool isAudio(const QString &ext);
+    static bool isVideo(const QString &ext);
     ~MediaWindow();
 
 protected:
@@ -80,9 +85,6 @@ private:
     int currentSubtitleTrackIndex = -1;
     int currentAudioTrackIndex = 0;
     
-    bool isImage(const QString &ext) const;
-    bool isAudio(const QString &ext) const;
-    bool isVideo(const QString &ext) const;
     bool wasPlayingBeforeSeek = true;
     bool isVisualizerActive = false;
     bool isVideoFocus = false;

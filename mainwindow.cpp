@@ -205,15 +205,19 @@ DauseTerminal* MainWindow::createTerminal() {
     DauseTerminal *wrapper = new DauseTerminal(nullptr);
     QTermWidget *term = wrapper->term();
 
+    QFont terminalFont("Adwaita Mono");
+    terminalFont.setStyleHint(QFont::Monospace);
+    terminalFont.setFixedPitch(true);
+    terminalFont.setPointSize(11);
+
+    term->setTerminalFont(terminalFont);
     term->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    term->setTerminalFont(QFont("Adwaita Mono", 11));
     term->setBlinkingCursor(true);
     term->setTerminalSizeHint(false);
     term->setScrollBarPosition(QTermWidget::ScrollBarRight);
     term->setKeyboardCursorShape(QTermWidget::KeyboardCursorShape::IBeamCursor);
     term->addCustomColorSchemeDir(":/schemes/colors");
     term->setColorScheme("Dause");
-
     term->setShellProgram("/bin/zsh");
     term->setArgs(QStringList() << "-i");
     term->setWorkingDirectory(QDir::homePath());
@@ -452,7 +456,6 @@ void MainWindow::onKeyboardClicked() {
     if (m_keyboardHeightAnimation->state() == QAbstractAnimation::Running)
         m_keyboardHeightAnimation->stop();
 
-    //if (ui->keyboardFrame->isVisible() && ui->keyboardFrame->maximumHeight() >= FRAME_MIN_HEIGHT) {
     if (ui->keyboardFrame->isVisible() && ui->keyboardFrame->height() >= targetKeyboardHeight) {
         // Hide
         keyboardIcon = QIcon(":/icons/assets/keyboard_s.svg");

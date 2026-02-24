@@ -39,12 +39,12 @@ class MainWindow : public QMainWindow {
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void openMediaFile(const QString &path);
 
 private slots:
     void splitVertical();
     void splitHorizontal();
     void openExplorer();
-    void openMediaFile(const QString &path);
     void onKeyboardClicked();
 
     void onShiftPressed();

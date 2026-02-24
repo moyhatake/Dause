@@ -1,4 +1,3 @@
-#include "animatedbutton.h"
 #include "ffmpegaudioanalyzer.h"
 #include "marqueelabel.h"
 #include "mediawindow.h"
@@ -35,13 +34,18 @@ MediaWindow::~MediaWindow() {
     if (player) player->stop();
 }
 
-bool MediaWindow::isImage(const QString &ext) const {
+bool MediaWindow::isSupported(const QString &path) {
+    QString ext = QFileInfo(path).suffix().toLower();
+    return isImage(ext) || isVideo(ext) || isAudio(ext);
+}
+
+bool MediaWindow::isImage(const QString &ext) {
     return QStringList{"png","jpg","jpeg","webp","gif"}.contains(ext);
 }
-bool MediaWindow::isAudio(const QString &ext) const {
+bool MediaWindow::isAudio(const QString &ext) {
     return QStringList{"mp3","m4a","flac","wav","ogg"}.contains(ext);
 }
-bool MediaWindow::isVideo(const QString &ext) const {
+bool MediaWindow::isVideo(const QString &ext) {
     return QStringList{"mp4","mkv","avi","mov","flv"}.contains(ext);
 }
 
