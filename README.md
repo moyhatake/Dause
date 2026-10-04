@@ -106,3 +106,16 @@ If the Delete key on your physical keyboard removes entire words instead of sing
 bindkey '^?' backward-delete-char  
 bindkey '^H' backward-delete-char
 ```  
+
+## Troubleshooting
+After `sudo pacman -Syu`, a major FFmpeg update may change
+shared-library versions required by a previously built Dause binary.
+
+If Dause fails to start with a missing FFmpeg library error, rebuild
+the AUR package:
+
+```bash
+yay -S dause | paru -S dause
+```
+
+If Dause starts normally after -Syu, no action is required.
